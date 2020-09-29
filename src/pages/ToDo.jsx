@@ -1,8 +1,9 @@
 import React from 'react'
-import { List, ListItem, ListIcon } from "@chakra-ui/core"
+import { List, ListItem, ListIcon, Heading } from "@chakra-ui/core"
 
 const ToDo = (props) => (
   <>
+    <Heading as="h1" size="lg">To Do</Heading>
     <List spacing={3}>
       <ListItem>
         {/* <ListIcon icon="check-circle" color="green.500" /> */}

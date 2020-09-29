@@ -1,14 +1,19 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { CSSReset, theme, ThemeProvider } from "@chakra-ui/core";
+import { Flex, CSSReset, theme, ThemeProvider } from "@chakra-ui/core";
 import Nav from './components/Nav';
-import Home from './pages/Home';
+import Archive from './pages/Archive';
 import ToDo from './pages/ToDo';
 import './App.css';
 
 // Let's say you want to add custom colors
 const customTheme = {
   ...theme,
+  fonts: {
+    heading: "'Caveat', cursive",
+    body: "'Caveat', cursive",
+    monospace: "'Courier Prime', monospace",
+  },
   colors: {
     ...theme.colors,
     brand: {
@@ -25,8 +30,15 @@ function App() {
       <CSSReset />
       <BrowserRouter>
         <Nav />
-        <Route exact path="/"><Home /></Route>
-        <Route path="/todo"><ToDo /></Route>
+        <Flex 
+          as="main" 
+          p={3} 
+          direction="column" 
+          align="center"
+        >
+          <Route exact path="/"><ToDo /></Route>
+          <Route path="/archive"><Archive /></Route>
+        </Flex> 
       </BrowserRouter>
     </ThemeProvider>
   );

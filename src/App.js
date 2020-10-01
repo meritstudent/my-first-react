@@ -24,24 +24,45 @@ const customTheme = {
   },
 };
 
-function App() {
-  return (
-    <ThemeProvider theme={customTheme}>
-      <CSSReset />
-      <BrowserRouter>
-        <Nav />
-        <Flex 
-          as="main" 
-          p={3} 
-          direction="column" 
-          align="center"
-        >
-          <Route exact path="/"><ToDo /></Route>
-          <Route path="/archive"><Archive /></Route>
-        </Flex> 
-      </BrowserRouter>
-    </ThemeProvider>
-  );
+class App extends React.Component {
+  constructor() {
+    // React.Component's constructor()
+    super()
+    this.state = {
+      todo: []
+    }
+  }
+
+  handleCreate(value) {
+    const todo = this.state.todo
+    todo.push(value)
+    this.setState({ todo })
+  }
+
+  render() {
+    return (
+      <ThemeProvider theme={customTheme}>
+        <CSSReset />
+        <BrowserRouter>
+          <Nav />
+          <Flex 
+            as="main" 
+            p={3} 
+            direction="column" 
+            align="center"
+          >
+            <Route exact path="/">
+              <ToDo 
+                todo={this.state.todo} 
+                handleCreate={this.handleCreate.bind(this)}
+              />
+            </Route>
+            <Route path="/archive"><Archive /></Route>
+          </Flex> 
+        </BrowserRouter>
+      </ThemeProvider>
+    );
+  }
 }
 
 export default App;

@@ -11,7 +11,11 @@ import {
   useDisclosure,
   FormControl,
   FormLabel,
-  Input
+  Input,
+  IconButton,
+  List,
+  ListItem,
+  Flex
 } from "@chakra-ui/core";
 
 const AddTaskModal = (props) => {
@@ -52,4 +56,28 @@ const AddTaskModal = (props) => {
   );
 }
 
-export { AddTaskModal }
+const TasksList = props => (<List spacing={1} minW={400} mt={2}>
+  {props.todo.map((val, i) => 
+    <ListItem p={2} border='1px' borderRadius='md' borderColor='gray.200'>
+      <Flex justify="space-between" align="center">
+        <span>{val}</span>
+        <span>
+          {"handleArchive" in props ? 
+          <IconButton 
+            mr={2}
+            variantColor="green" 
+            icon="check" 
+            onClick={() => props.handleArchive(val, i)}
+          /> : null }
+          <IconButton 
+            variantColor="red" 
+            icon="delete" 
+            onClick={() => props.handleDelete(i)}
+          />
+        </span>
+      </Flex>
+    </ListItem>)}
+  </List>
+)
+
+export { AddTaskModal, TasksList }

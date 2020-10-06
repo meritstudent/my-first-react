@@ -29,14 +29,34 @@ class App extends React.Component {
     // React.Component's constructor()
     super()
     this.state = {
-      todo: []
+      todo: [],
+      archive: []
     }
+  }
+
+  handleArchive(value, i) {
+    this.handleDelete(i)
+    const archive = this.state.archive
+    archive.push(value)
+    this.setState({ archive })
   }
 
   handleCreate(value) {
     const todo = this.state.todo
     todo.push(value)
     this.setState({ todo })
+  }
+
+  handleDelete(i) {
+    const todo = this.state.todo
+    todo.splice(i, 1)
+    this.setState({ todo })
+  }
+
+  handleDeleteArchive(i) {
+    const archive = this.state.archive
+    archive.splice(i, 1)
+    this.setState({ archive })
   }
 
   render() {
@@ -54,10 +74,17 @@ class App extends React.Component {
             <Route exact path="/">
               <ToDo 
                 todo={this.state.todo} 
+                handleArchive={this.handleArchive.bind(this)}
                 handleCreate={this.handleCreate.bind(this)}
+                handleDelete={this.handleDelete.bind(this)}
               />
             </Route>
-            <Route path="/archive"><Archive /></Route>
+            <Route path="/archive">
+              <Archive 
+                todo={this.state.archive} 
+                handleDelete={this.handleDeleteArchive.bind(this)}  
+              />
+            </Route>
           </Flex> 
         </BrowserRouter>
       </ThemeProvider>
